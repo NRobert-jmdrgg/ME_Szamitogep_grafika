@@ -18,7 +18,7 @@ int main()
     printf("Hossz: A:%lf, B: %lf, C: %lf", c.a, c.b, c.c);
     printf("\nvolume: %lf", calc_volume(&c));
     printf("\nsurface: %lf", calc_surface(&c));
-    printf("\nNegyzet alapu lap: %d", negyzet_alapu_lap(&c));
+    printf("\nNegyzet alapu lap: %d\n", negyzet_alapu_lap(&c));
     return 0;
 }
 
