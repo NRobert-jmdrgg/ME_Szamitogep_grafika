@@ -28,6 +28,8 @@ typedef struct Color
     float r, g, b;
 } Color;
 
+// void palette(Color colors[], int len);
+
 int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_VIDEO);
@@ -43,6 +45,14 @@ int main(int argc, char* argv[])
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     
     SDL_Event event;
+
+    // Color colors[] = {
+    //     {255, 255, 255},
+    //     {111, 111, 111},
+    //     {1, 2, 3}
+    // }
+
+    // palette(colors, 3);
 
     int x, y;
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);   
@@ -67,7 +77,6 @@ int main(int argc, char* argv[])
                     run = false;
                 }
                 break;
-
             case SDL_MOUSEBUTTONDOWN:
                 if (event.button.button == SDL_BUTTON_LEFT)
                 {
@@ -83,26 +92,26 @@ int main(int argc, char* argv[])
 
                         SDL_RenderDrawPoint(renderer, x, y);
                     }
-
-                    if (p_count % 2 == 1) 
-                    {
-                        SDL_RenderDrawLine(renderer, points[p_count - 1].x, points[p_count -1].y, points[p_count].x, points[p_count].y);
-                    }
                 }
                 break;
             }
         }
 
-        // SDL_RenderDrawLine(renderer, points[0].x, points[0].y, points[1].x, points[1].y);
+        if (p_count == MAX_LINE_COUNT)
+        {
+            for (int i = 0; i < MAX_LINE_COUNT; i+=2)
+            {
+                SDL_RenderDrawLine(renderer, points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
+            }
+        }
 
         SDL_RenderPresent(renderer);
-
     }
 
-    for (int i = 0; i < MAX_LINE_COUNT; i++)
-    {
-        printf("%f %f\n", points[i].x, points[i].y);
-    }
+    // for (int i = 0; i < MAX_LINE_COUNT; i++)
+    // {
+    //     printf("%f %f\n", points[i].x, points[i].y);
+    // }
     
 
     SDL_DestroyRenderer(renderer);
@@ -110,3 +119,46 @@ int main(int argc, char* argv[])
     SDL_Quit();
     return 0;
 }
+
+// void palette(Color colors[], int len) 
+// {
+//     SDL_Window *window = SDL_CreateWindow("paletta", 150, 150, 200, 500, 0);
+
+//     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+//     SDL_Event event;
+
+//     SDL_Rect *colored_rectangles = (SDL_Rect*)malloc(len * sizeof(SDL_Rect));
+
+//     bool run = true;
+
+//     while (run)
+//     {        
+//         while (SDL_PollEvent(&event))
+//         {
+//             switch (event.type)
+//             {
+//             case SDL_QUIT:
+//                 run = false;
+//                 break;
+//             case SDL_KEYDOWN:
+//                 if (event.key.keysym.scancode == SDL_SCANCODE_Q)
+//                 {
+//                     run = false;
+//                 }
+//                 break;
+//             case SDL_MOUSEBUTTONDOWN:
+
+//                 break;
+//             }
+//         }   
+//     }
+
+//     SDL_RenderClear(renderer);
+//     SDL_RenderPresent(renderer);
+
+//     // SDL_Delay(5000);
+
+//     SDL_DestroyRenderer(renderer);
+//     SDL_DestroyWindow(window);
+// }
