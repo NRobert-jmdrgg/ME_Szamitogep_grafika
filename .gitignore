@@ -3,3 +3,5 @@
 *.out
 ./.vscode
 .vscode
+SDL2
+./SDL2
